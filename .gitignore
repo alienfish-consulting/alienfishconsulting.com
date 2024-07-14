@@ -1,6 +1,9 @@
 # Include your project-specific ignores in this file
 # Read about how to use .gitignore: https://help.github.com/articles/ignoring-files
 
+.secrets
+.env
+
 # Compiled output
 /*/dist/
 
@@ -28,6 +31,7 @@ yarn-error.log*
 *.lcov
 
 # Environment variables
+.env
 .env.*.local
 .env.local
 
@@ -46,3 +50,5 @@ yarn-error.log*
 # macOS
 # https://github.com/github/gitignore/blob/master/Global/macOS.gitignore
 .DS_Store
+/.secrets/
+/.secrets/

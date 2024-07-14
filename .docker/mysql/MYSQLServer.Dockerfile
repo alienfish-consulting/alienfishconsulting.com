@@ -1,0 +1,8 @@
+FROM mysql:latest
+
+ENV MYSQL_USER=${MYSQL_USER}
+ENV MYSQL_PASSWORDR=${MYSQL_PASSWORDR}
+ENV MYSQL_DATABASE=${MYSQL_DATABASE}
+ENV MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+
+RUN ["mysql","-u","root","-pleeallen","sql-trainer","<","/sql/schema.sql"]

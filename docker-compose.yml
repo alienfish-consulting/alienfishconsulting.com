@@ -1,0 +1,39 @@
+name: mysql-trainer
+services:
+  mysql:
+    container_name: "mysql"
+    build:
+      context: ../sql-trainer
+      dockerfile: .docker/mysql/MYSQLServer.Dockerfile
+    restart: always
+    environment:
+      MYSQL_USER: ${MYSQL_USER:-bill}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-wilson}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-leeallen}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-sql_trainer}
+    ports:
+      - 3306:3306
+    volumes:
+      - ./.docker/mysql/data:/var/lib/mysql
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-u", "root", "-p${MYSQL_ROOT_PASSWORD}" ]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  builder:
+    container_name: builder
+    build:
+      context: ../sql-trainer
+      dockerfile: .docker/mysql/Builder.Dockerfile
+    environment:
+      MYSQL_USER: ${MYSQL_USER:-bill}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD:-wilson}
+      MYSQL_DATABASE: ${MYSQL_DATABASE:-sql_trainer}
+      MYSQL_HOST: mysql
+    volumes:
+      - ./.docker/mysql/sql:/sql
+    depends_on:
+      mysql:
+        condition: service_healthy
+

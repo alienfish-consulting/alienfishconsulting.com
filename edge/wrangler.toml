@@ -1,7 +1,7 @@
 # Cloudflare Workers configuration
 # https://developers.cloudflare.com/workers/wrangler/configuration/
 
-name = "example"
+name = "alienfishconsulting-web"
 main = "index.js"
 
 # https://developers.cloudflare.com/workers/platform/compatibility-dates/
@@ -11,7 +11,7 @@ send_metrics       = false
 account_id = "${CLOUDFLARE_ACCOUNT_ID}"
 
 routes = [
-  { pattern = "${APP_HOSTNAME}/*", zone_id = "${CLOUDFLARE_ZONE_ID}" }
+  { pattern = "${APP_HOSTNAME}", custom_domain=true }
 ]
 
 rules = [
@@ -34,7 +34,7 @@ FROM_EMAIL           = "${FROM_EMAIL}"
 bucket = "../../app/dist"
 
 [env.test]
-name = "example-test"
+name = "alienfishconsulting.com"
 
 [env.test.vars]
 APP_ENV              = "${APP_ENV}"
